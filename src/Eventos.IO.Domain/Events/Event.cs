@@ -1,17 +1,18 @@
-﻿using Eventos.IO.Domain.Core.Models;
-using FluentValidation;
+﻿using FluentValidation;
+using Eventos.IO.Domain.Organizers;
+using Eventos.IO.Domain.Core.Models;
 
-namespace Eventos.IO.Domain.Models;
+namespace Eventos.IO.Domain.Events;
 
 public class Event : Entity<Event>
 {
     public Event(
-        string name, 
-        DateTime initialDate, 
-        DateTime endDate, 
-        bool isFree, 
-        decimal value, 
-        bool isOnline, 
+        string name,
+        DateTime initialDate,
+        DateTime endDate,
+        bool isFree,
+        decimal value,
+        bool isOnline,
         string companyName)
     {
         Id = Guid.NewGuid();
@@ -53,12 +54,14 @@ public class Event : Entity<Event>
         ValidateCompanyName();
         ValidationResult = Validate(this);
     }
+
     private void ValidateName()
     {
         RuleFor(e => e.Name)
             .NotEmpty().WithMessage("The name cannot be null")
             .Length(2, 150).WithMessage("The name must have be between 2 and 150 characters");
     }
+
     private void ValidateValue()
     {
         if (!IsFree)
@@ -71,6 +74,7 @@ public class Event : Entity<Event>
                 .ExclusiveBetween(0, 0).When(e => e.IsFree)
                 .WithMessage("The value cannot be less than 0 for a free event");
     }
+
     private void ValidateData()
     {
         RuleFor(d => d.InitialDate)
@@ -81,6 +85,7 @@ public class Event : Entity<Event>
             .LessThan(DateTime.Now)
             .WithMessage("The initial date cannot be less than the current date");
     }
+
     private void ValidateLocal()
     {
         if (IsOnline)
@@ -93,6 +98,7 @@ public class Event : Entity<Event>
                 .NotNull().When(o => o.IsOnline == false)
                 .WithMessage("The event must have be an address");
     }
+
     private void ValidateCompanyName()
     {
         RuleFor(c => c.CompanyName)
