@@ -175,7 +175,7 @@ public class Event : Entity<Event>
                 CategoryId = categoryId
             };
             if (organizerId != null)
-                evento.Organizer = new Organizer(organizerId.Value);
+                evento.OrganizerId = organizerId.Value;
 
             if (isOnline)
                 evento.Address = null;
