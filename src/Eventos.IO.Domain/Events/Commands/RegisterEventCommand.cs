@@ -11,7 +11,10 @@ public class RegisterEventCommand : BaseEventCommand
         bool isFree,
         decimal value,
         bool isOnline,
-        string companyName)
+        string companyName,
+        Guid organizerId,
+        Address address,
+        Guid categoryId)
     {
         Name = name;
         InitialDate = initialDate;
@@ -20,5 +23,8 @@ public class RegisterEventCommand : BaseEventCommand
         Value = value;
         IsOnline = isOnline;
         CompanyName = companyName;
+        OrganizerId = organizerId;
+        Address = address;
+        CategoryId = categoryId;
     }
 }

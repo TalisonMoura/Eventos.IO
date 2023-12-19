@@ -7,8 +7,8 @@ public interface IRepository<TEntity> : IDisposable where TEntity : Entity<TEnti
 {
     void Add(TEntity obj);
     void Update(TEntity obj);
-    void Delete(TEntity obj);
-    TEntity GetById(int id);
+    void Delete(Guid obj);
+    TEntity GetById(Guid id);
     IEnumerable<TEntity> GetAll();
     IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
     int SaveChanges();

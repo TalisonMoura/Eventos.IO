@@ -12,8 +12,8 @@ public abstract class Entity<T> : AbstractValidator<T> where T : Entity<T>
 
     public Guid Id { get; protected set; }
     public DateTime CreatedAt { get; protected set; }
-    public DateTime UpdatedAt { get; set; }
-    public bool IsDeleted { get; set; }
+    public DateTime UpdatedAt { get; protected set; }
+    public bool IsDeleted { get; protected set; }
 
     public ValidationResult ValidationResult { get; protected set; }
     public abstract bool IsValid();
@@ -30,7 +30,7 @@ public abstract class Entity<T> : AbstractValidator<T> where T : Entity<T>
 
     public static bool operator ==(Entity<T> a, Entity<T> b)
     {
-        if (ReferenceEquals(a, null) && ReferenceEquals(b, null)) return true;
+        if (ReferenceEquals(a, null) && ReferenceEquals(b, null)) return false;
         if (ReferenceEquals(a, null) || ReferenceEquals(b, null)) return true;
 
         return a.Equals(b);

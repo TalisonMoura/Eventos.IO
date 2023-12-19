@@ -25,6 +25,8 @@ public class Event : Entity<Event>
         CompanyName = companyName;
     }
 
+    private Event() { }
+
     public string Name { get; private set; }
     public string ShortDescription { get; private set; }
     public string LongDescription { get; private set; }
@@ -34,10 +36,31 @@ public class Event : Entity<Event>
     public decimal Value { get; private set; }
     public bool IsOnline { get; private set; }
     public string CompanyName { get; private set; }
-    public Category Category { get; private set; }
-    public Address Address { get; private set; }
-    public Organizer Organizer { get; private set; }
+    public Guid? CategoryId { get; private set; }
+    public Guid? AddressId { get; private set; }
+    public Guid OrganizerId { get; private set; }
     public ICollection<Tags> Tags { get; private set; }
+
+    public virtual Category Category { get; private set; }
+    public virtual Address Address { get; private set; }
+    public virtual Organizer Organizer { get; private set; }
+
+    public void AttachAddres(Address address)
+    {
+        if (!address.IsValid()) return;
+        Address = address;
+    }
+
+    public void AttachCategory(Category category)
+    {
+        if (!category.IsValid()) return;
+        Category = category;
+    }
+
+    public void DeleteEvent()
+    {
+        IsDeleted = true;
+    }
 
     public override bool IsValid()
     {
@@ -45,6 +68,7 @@ public class Event : Entity<Event>
         return ValidationResult.IsValid;
     }
 
+    #region Validation
     private void Validate()
     {
         ValidateName();
@@ -53,6 +77,7 @@ public class Event : Entity<Event>
         ValidateLocal();
         ValidateCompanyName();
         ValidationResult = Validate(this);
+        ValidateAddress();
     }
 
     private void ValidateName()
@@ -105,4 +130,58 @@ public class Event : Entity<Event>
             .NotEmpty().WithMessage("The organizer name needs to be given")
             .Length(2, 150).WithMessage("The organizer name needs to be between 2 and 150 characters");
     }
+    
+    private void ValidateAddress()
+    {
+        if (IsOnline) return;
+        if (Address.IsValid()) return;
+
+        Address.ValidationResult.Errors.ToList()
+            .ForEach(e => { ValidationResult.Errors.Add(e); });
+    }
+    #endregion
+
+    #region Factory
+    public static class EventFactory
+    {
+        public static Event NewFullEvent(
+            Guid id,
+            string name,
+            string shortDescription,
+            string longDescription,
+            DateTime initialDate,
+            DateTime endDate,
+            bool isFree,
+            decimal value,
+            bool isOnline,
+            string companyName,
+            Guid? organizerId,
+            Address address,
+            Guid categoryId)
+        {
+            var evento = new Event()
+            {
+                Id = id,
+                Name = name,
+                ShortDescription = shortDescription,
+                LongDescription = longDescription,
+                InitialDate = initialDate,
+                EndDate = endDate,
+                IsFree = isFree,
+                Value = value,
+                IsOnline = isOnline,
+                CompanyName = companyName,
+                Address = address,
+                CategoryId = categoryId
+            };
+            if (organizerId != null)
+                evento.Organizer = new Organizer(organizerId.Value);
+
+            if (isOnline)
+                evento.Address = null;
+
+            return evento;
+        }
+    }
+    #endregion
 }

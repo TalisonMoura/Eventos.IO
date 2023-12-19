@@ -14,4 +14,7 @@ public abstract class BaseEventCommand : Command
     public decimal Value { get; protected set; }
     public bool IsOnline { get; protected set; }
     public string CompanyName { get; protected set; }
+    public Guid OrganizerId { get; protected set; }
+    public Guid CategoryId { get; protected set; }
+    public Address Address { get; protected set; }
 }

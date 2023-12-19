@@ -1,7 +1,6 @@
 ﻿using Eventos.IO.Domain.Core.Events.Interfaces;
-using Eventos.IO.Domain.Events.MEvents;
 
-namespace Eventos.IO.Domain.Events.EventHandler;
+namespace Eventos.IO.Domain.Events.MEvents;
 
 public class MEventHandler : IHandler<RegisteredMEevent>, IHandler<UpdatedMEvent>, IHandler<DeletedMEvent>
 {
