@@ -1,5 +1,5 @@
-﻿using Eventos.IO.Domain.Core.Models;
-using FluentValidation;
+﻿using FluentValidation;
+using Eventos.IO.Domain.Core.Models;
 
 namespace Eventos.IO.Domain.Events;
 
