@@ -57,11 +57,6 @@ public class Event : Entity<Event>
         Category = category;
     }
 
-    public void DeleteEvent()
-    {
-        IsDeleted = true;
-    }
-
     public override bool IsValid()
     {
         Validate();

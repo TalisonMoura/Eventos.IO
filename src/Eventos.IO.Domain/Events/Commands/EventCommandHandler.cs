@@ -25,7 +25,7 @@ public class EventCommandHandler : CommandHandler, IHandler<RegisterEventCommand
         _bus = bus;
     }
 
-    public void Handle(RegisterEventCommand message)
+    public async void Handle(RegisterEventCommand message)
     {
         var evento = Event.EventFactory.NewFullEvent(
                 message.Id,
@@ -44,9 +44,9 @@ public class EventCommandHandler : CommandHandler, IHandler<RegisterEventCommand
 
         if (!IsValidEvent(evento)) return;
 
-        _eventRepository.Add(evento);
+        await _eventRepository.RegisterAsync(evento);
 
-        if (Commit())
+        if (await CommitAsync())
         {
             Console.WriteLine("Event successfull registered");
             _bus.RaiseEvent(new RegisteredMEevent(
@@ -61,9 +61,9 @@ public class EventCommandHandler : CommandHandler, IHandler<RegisterEventCommand
         }
     }
 
-    public void Handle(UpdateEventCommand message)
+    public async void Handle(UpdateEventCommand message)
     {
-        var currentEvent = _eventRepository.GetById(message.Id);
+        var currentEvent = await _eventRepository.FindByIdAsync(message.Id);
 
         if (!IsEventExist(message.Id, message.MessageType)) return; 
 
@@ -86,7 +86,7 @@ public class EventCommandHandler : CommandHandler, IHandler<RegisterEventCommand
 
         _eventRepository.Update(evento);
 
-        if (Commit())
+        if (await CommitAsync())
         {
             _bus.RaiseEvent(new UpdatedMEvent(
                     evento.Id,
@@ -103,13 +103,13 @@ public class EventCommandHandler : CommandHandler, IHandler<RegisterEventCommand
         }
     }
 
-    public void Handle(DeleteEventCommand message)
+    public async void Handle(DeleteEventCommand message)
     {
         if (!IsEventExist(message.Id, message.MessageType)) return;
 
-        _eventRepository.Delete(message.Id);
+        _eventRepository.DeleteByIdAsync(message.Id);
 
-        if (Commit())
+        if (await CommitAsync())
         {
             _bus.RaiseEvent(new DeletedMEvent(message.Id));
         }
@@ -122,9 +122,10 @@ public class EventCommandHandler : CommandHandler, IHandler<RegisterEventCommand
         NotificationHandler(evento.ValidationResult);
         return false;
     }
+
     private bool IsEventExist(Guid id, string messageType)
     {
-        var evento = _eventRepository.GetById(id);
+        var evento = _eventRepository.FindByIdAsync(id);
 
         if(evento != null) return true;
 

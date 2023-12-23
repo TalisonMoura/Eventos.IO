@@ -4,5 +4,5 @@ namespace Eventos.IO.Domain.Interfaces;
 
 public interface IUnitOfWork : IDisposable
 {
-    CommandResponse Commit();
+    Task<CommandResponse> CommitAsync();
 }

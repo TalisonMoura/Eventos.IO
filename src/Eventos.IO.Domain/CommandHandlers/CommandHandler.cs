@@ -24,17 +24,17 @@ public abstract class CommandHandler
 
     protected void NotificationHandler(ValidationResult validationResult)
     {
-        validationResult.Errors.ToList().ForEach(e =>
+        validationResult.Errors.ForEach(e =>
         {
             _bus.RaiseEvent(new DomainNotification(e.PropertyName, e.ErrorMessage));
         });
     }
 
-    protected bool Commit()
+    protected async Task<bool> CommitAsync()
     {
         if (_notification.HasNotification()) return false;
 
-        var commandResponse = _unitOfWork.Commit();
+        var commandResponse = await _unitOfWork.CommitAsync();
         if (commandResponse.Success) return true;
 
         _bus.RaiseEvent(new DomainNotification("Commit", "An error ocurred when save the data"));

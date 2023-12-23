@@ -17,6 +17,8 @@ public abstract class Entity<T> : AbstractValidator<T> where T : Entity<T>
 
     public ValidationResult ValidationResult { get; protected set; }
     public abstract bool IsValid();
+    public void IsDeletedTrue() => IsDeleted = true;
+    public void UpdatedAtNow() => UpdatedAt = DateTime.Now;
 
     public override bool Equals(object? obj)
     {
