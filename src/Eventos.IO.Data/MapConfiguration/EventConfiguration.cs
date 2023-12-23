@@ -20,7 +20,7 @@ public class EventConfiguration : EntityTypeConfiguration<Event>
 
         builder
             .Property(e => e.LongDescription)
-            .HasColumnType("varchar(max)");
+            .HasColumnType("text");
 
         builder
             .Property(e => e.CompanyName)

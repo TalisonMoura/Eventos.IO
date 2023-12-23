@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Eventos.IO.Data.Repository;
 
-public class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity<TEntity>
+public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity<TEntity>
 {
     protected EventContext Db;
     protected DbSet<TEntity> DbSet;

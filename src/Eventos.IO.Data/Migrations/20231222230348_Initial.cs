@@ -50,7 +50,7 @@ namespace Eventos.IO.Data.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "varchar(150)", nullable: false),
                     ShortDescription = table.Column<string>(type: "varchar(150)", nullable: false),
-                    LongDescription = table.Column<string>(type: "varchar(max)", nullable: false),
+                    LongDescription = table.Column<string>(type: "text", nullable: false),
                     InitialDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     EndDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     IsFree = table.Column<bool>(type: "boolean", nullable: false),
