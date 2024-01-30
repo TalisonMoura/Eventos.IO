@@ -1,7 +1,7 @@
 ﻿using Eventos.IO.Domain.Core.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Eventos.IO.Data.Extensions;
+namespace Eventos.IO.Infra.Data.Extensions;
 
 public static class ModelBuilderExtensions
 {

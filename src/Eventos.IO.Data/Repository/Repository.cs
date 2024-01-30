@@ -1,10 +1,10 @@
-﻿using Eventos.IO.Data.Context;
+﻿using Eventos.IO.Infra.Data.Context;
 using System.Linq.Expressions;
 using Eventos.IO.Domain.Interfaces;
 using Eventos.IO.Domain.Core.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Eventos.IO.Data.Repository;
+namespace Eventos.IO.Infra.Data.Repository;
 
 public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity<TEntity>
 {
@@ -19,12 +19,12 @@ public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity :
 
     public virtual IQueryable<TEntity> QueryAsNoTracking => DbSet.AsNoTracking();
 
-    public virtual async Task<TEntity> FindByIdAsync(Guid id) => await DbSet.FirstOrDefaultAsync(x => x.Id ==  id);
+    public virtual async Task<TEntity> FindByIdAsync(Guid id) => await DbSet.FirstOrDefaultAsync(x => x.Id == id);
 
     public virtual async Task<bool> ExistAsync(Guid id) => await DbSet.AnyAsync(x => x.Id == id);
 
     public virtual void Delete(TEntity entity) => entity?.IsDeletedTrue();
-   
+
     public virtual IEnumerable<TEntity> Search(Expression<Func<TEntity, bool>> predicate) => DbSet.AsNoTracking().Where(predicate);
 
     public virtual async Task<IEnumerable<TEntity>> GetAllAsync() => await DbSet.ToListAsync();

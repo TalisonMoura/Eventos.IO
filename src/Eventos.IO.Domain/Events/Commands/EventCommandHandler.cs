@@ -27,6 +27,7 @@ public class EventCommandHandler : CommandHandler, IHandler<RegisterEventCommand
 
     public async void Handle(RegisterEventCommand message)
     {
+        var address = new Address(message.Address.Id, message.Address.Patio, message.Address.Number, message.Address.Complement, message.Address.Neighborhood, message.Address.ZipCode, message.Address.City, message.Address.State, message.Address.EventId);
         var evento = Event.EventFactory.NewFullEvent(
                 message.Id,
                 message.Name,
@@ -39,7 +40,7 @@ public class EventCommandHandler : CommandHandler, IHandler<RegisterEventCommand
                 message.IsOnline,
                 message.CompanyName,
                 message.OrganizerId,
-                message.Address,
+                address,
                 message.CategoryId);
 
         if (!IsValidEvent(evento)) return;

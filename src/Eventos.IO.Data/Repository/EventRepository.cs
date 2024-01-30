@@ -1,8 +1,8 @@
-﻿using Eventos.IO.Data.Context;
+﻿using Eventos.IO.Infra.Data.Context;
 using Eventos.IO.Domain.Events;
 using Eventos.IO.Domain.Events.Repository;
 
-namespace Eventos.IO.Data.Repository;
+namespace Eventos.IO.Infra.Data.Repository;
 
 public class EventRepository : Repository<Event>, IEventRepository
 {

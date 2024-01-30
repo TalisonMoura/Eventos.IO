@@ -66,13 +66,13 @@ public class Event : Entity<Event>
     #region Validation
     private void Validate()
     {
-        ValidateName();
-        ValidateValue();
         ValidateData();
+        ValidateName();
         ValidateLocal();
+        ValidateValue();
+        ValidateAddress();
         ValidateCompanyName();
         ValidationResult = Validate(this);
-        ValidateAddress();
     }
 
     private void ValidateName()

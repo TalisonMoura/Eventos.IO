@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Eventos.IO.Data\Eventos.IO.Data.csproj" />
+    <ProjectReference Include="..\Eventos.IO.Data\Eventos.IO.Infra.Data.csproj" />
   </ItemGroup>
 
 </Project>

@@ -6,6 +6,8 @@ public class RegisterEventCommand : BaseEventCommand
 {
     public RegisterEventCommand(
         string name,
+        string shortDescription,
+        string longDescription,
         DateTime initialDate,
         DateTime endDate,
         bool isFree,
@@ -13,10 +15,12 @@ public class RegisterEventCommand : BaseEventCommand
         bool isOnline,
         string companyName,
         Guid organizerId,
-        Address address,
-        Guid categoryId)
+        Guid categoryId,
+        IncludeAddressEventCommand address)
     {
         Name = name;
+        ShortDescription = shortDescription;
+        LongDescription = longDescription;
         InitialDate = initialDate;
         EndDate = endDate;
         IsFree = isFree;
@@ -24,7 +28,8 @@ public class RegisterEventCommand : BaseEventCommand
         IsOnline = isOnline;
         CompanyName = companyName;
         OrganizerId = organizerId;
-        Address = address;
         CategoryId = categoryId;
+        Address = address;
     }
+    public IncludeAddressEventCommand Address { get; private set; }
 }

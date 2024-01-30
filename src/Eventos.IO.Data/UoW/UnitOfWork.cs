@@ -1,8 +1,8 @@
-﻿using Eventos.IO.Data.Context;
+﻿using Eventos.IO.Infra.Data.Context;
 using Eventos.IO.Domain.Interfaces;
 using Eventos.IO.Domain.Core.Commands;
 
-namespace Eventos.IO.Data.UoW;
+namespace Eventos.IO.Infra.Data.UoW;
 
 public class UnitOfWork : IUnitOfWork
 {

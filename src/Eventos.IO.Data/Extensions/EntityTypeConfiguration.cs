@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Eventos.IO.Data.Extensions;
+namespace Eventos.IO.Infra.Data.Extensions;
 
 public abstract class EntityTypeConfiguration<TEntity> where TEntity : class
 {

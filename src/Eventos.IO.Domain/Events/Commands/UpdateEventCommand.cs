@@ -14,7 +14,9 @@ public class UpdateEventCommand : BaseEventCommand
         bool isFree,
         decimal value,
         bool isOnline,
-        string companyName)
+        string companyName,
+        Guid organizerId,
+        Guid categoryId)
     {
         Id = id;
         Name = name;
@@ -26,5 +28,7 @@ public class UpdateEventCommand : BaseEventCommand
         Value = value;
         IsOnline = isOnline;
         CompanyName = companyName;
+        OrganizerId = organizerId;
+        CategoryId = categoryId;
     }
 }

@@ -1,11 +1,11 @@
 ﻿using Eventos.IO.Domain.Events;
-using Eventos.IO.Data.Extensions;
 using Eventos.IO.Domain.Organizers;
 using Microsoft.EntityFrameworkCore;
-using Eventos.IO.Data.MapConfiguration;
+using Eventos.IO.Infra.Data.MapConfiguration;
 using Microsoft.Extensions.Configuration;
+using Eventos.IO.Infra.Data.Extensions;
 
-namespace Eventos.IO.Data.Context;
+namespace Eventos.IO.Infra.Data.Context;
 
 public class EventContext : DbContext
 {
